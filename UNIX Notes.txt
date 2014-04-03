@@ -1,0 +1,343 @@
+BASICS
+******************************************************************
+Profile is ususally /etc/.profile
+******************************************************************
+Remote reboot:
+shutdown -r now
+******************************************************************
+Which ports are open:
+netstat -anp --tcp --udp | grep LISTEN
+******************************************************************
+
+
+********
+********VI SHORTCUTS
+********
+gg   takes you to line #1
+:set paste    Before you paste something in so that the formatting is not lost from what you originally copied  Do :set nopaste after you are done.
+:set nu     Shows the line numbers
+
+
+
+********
+********SCP
+********
+
+scp -P 2921 sethf1@HOST_URL_OR_IP_ADDRESS:journalbackup.zip journalbkup.zip
+(command)  (port if different than 22)  (user@server) : (file to copy)   (path/targetname)
+
+
+
+********
+********PERMISSIONS
+********
+groups seth (shows what groups the user is in)
+
+
+CHOWN - http://en.wikipedia.org/wiki/Chown
+
+CHGRP - http://en.wikipedia.org/wiki/Chgrp
+The general syntax of the chgrp command is:
+
+chgrp group target1 [target2 ..]
+
+    * The group parameter indicates the new group with which the targets should be associated. It may either be a symbolic name or an identifier.
+    * The target1 parameter indicates the files or directories for which the change should be made.
+    * The target2 parameter indicates optional additional files or directories for which the change should be made.
+
+Usage example
+
+$ ls -l ttt
+-rw-r--r--   1 gbeeker  staff           545 Nov 04 2004  ttt
+$ chgrp system ttt
+$ ls -l ttt
+-rw-r--r--   1 gbeeker  system          545 Nov 04 2004  ttt
+
+The above command changes the group associated with directory ttt to 'system', provided the executing user is a member of that group.
+
+
+
+
+
+********
+********RENAMING FILES IN MASS
+******************************************************************
+
+rename .js.gz .js *.js.gz
+
+rename .png.gz .png *.png.gz
+
+rename .php.gz .php *.php.gz
+
+rename .css.gz .css *.css.gz
+
+rename .gif.gz .gif *.gif.gz
+
+rename .htm.gz .htm *.htm.gz
+
+You can also do:
+mv *.* /dir
+This will move all files with a . in the file name to the directory path specified
+
+
+
+********
+********STOP OR START APACHE:
+******************************************************************
+/sbin/service httpd restart
+
+to start:
+/sbin/service httpd start
+
+to stop:
+/sbin/service httpd stop
+
+
+
+
+********
+********Version of php:
+******************************************************************
+php -v
+
+
+
+********
+********What version of OS am I running?
+******************************************************************
+cat /proc/version
+or
+REDHAT/CENTOS Do: tail /etc/redhat-release
+UBUNTU Do: cat /etc/issue
+
+
+
+
+********
+********tar instructions:
+******************************************************************
+1. Put all the files you want to put together into some directory; there should be nothing else in this directory. Often, it is a directory you create just for this purpose.
+
+2. To tar the files: Suppose you have placed the files to be submitted into a directory named Homework3 for the following example. From the parent directory, enter the following command:
+
+            tar -cf ILoveHomework.tar Homework3
+
+    Comments:
+        * The c tells tar to create a new tar file
+        * The f tells tar to name it ILoveHomework.tar
+
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
+
+To uncompress the files (or to get the files out of a tarball), you can use the following commands:
+tar -xvf filename.tar
+To uncompress to a dir add -C dir/ to the end of the above
+
+
+If the tarball has also been gzipped (compressed), you can use the following command:
+tar xvfz filename.tar.gz
+
+
+If you only want certain directories from the tarball, do this:
+tar xvzf filename.tar.gz */dir.you.want/*
+
+ List the contents of a tar file
+Use the following command:
+$ tar -tvf file.tar
+
+List the contents of a tar.gz file
+Use the following command:
+$ tar -ztvf file.tar.gz
+
+
+
+
+********
+********Mounting NFS File Systems
+******************************************************************
+mount shadowman.example.com:/misc/export /misc/local
+
+shadowman.example.com is the hostname of the NFS file server, /misc/export  is the directory that shadowman is exporting, and /misc/local is the location to mount the file system on the local machine. After the mount command runs (and if the client has proper permissions from the shadowman.example.com NFS server) the client user can execute the command ls /misc/local to display a listing of the files in /misc/export on shadowman.example.com.
+
+The default transport protocol for NFS is UDP; however, the Red Hat Enterprise Linux 3 kernel includes support for NFS over TCP. To use NFS over TCP, include the -o tcp option to mount when mounting the NFS-exported file system on the client system. For example:
+
+mount -o tcp shadowman.example.com:/misc/export /misc/local
+
+
+
+
+
+********
+********display all running process
+********
+
+http://www.cyberciti.biz/faq/show-all-running-processes-in-linux/
+******************************************************************
+# ps aux | less
+
+* -A: select all processes
+* a: select all processes on a terminal, including those of other users
+* x: select processes without controlling ttys
+
+see every process on the system
+# ps -A
+# ps -e
+
+See every process except those running as root
+# ps -U root -u root -N
+
+See process run by user vivek
+# ps -u vivek
+
+The top program provides a dynamic real-time view of a running system. Type the top at command prompt:
+# top
+
+ps -ef | grep somthing | grep -v what_you_dont_want
+
+
+
+
+Kill process using kill command
+******************************************************************
+
+find out process PID
+ps aux | grep processname
+OR
+pidof processname
+
+Kill process using PID#
+Kill <PID#>
+
+
+
+
+CRON JOB
+******************************************************************
+1. Crontab Restrictions
+You can execute crontab if your name appears in the file /usr/lib/cron/cron.allow. If that file does not exist, you can use
+crontab if your name does not appear in the file /usr/lib/cron/cron.deny.
+If only cron.deny exists and is empty, all users can use crontab. If neither file exists, only the root user can use crontab. The allow/deny files consist of one user name per line.
+
+2. Crontab Commands
+
+export EDITOR=vi ;to specify a editor to open crontab file.
+
+crontab -e  Edit your crontab file, or create one if it doesn’t already exist.
+crontab -l      Display your crontab file.
+crontab -r      Remove your crontab file.
+crontab -v      Display the last time you edited your crontab file. (This option is only available on a few systems.)
+
+3. Crontab file
+Crontab syntax :
+A crontab file has five fields for specifying day , date and time followed by the command to be run at that interval.
+
+*   *   *   *   *       command to be executed
+-   -   -   -   -
+|   |   |   |   |
+|   |   |   |   +----- day of week (0 - 6) (Sunday=0)
+|   |   |   +------- month (1 - 12)
+|   |   +--------- day of       month (1 - 31)
+|   +----------- hour (0 - 23)
++------------- min (0 - 59)
+
+* in the value field above means all legal values as in braces for that column.
+The value column can have a * or a list of elements separated by commas. An element is either a number in the ranges shown above or two numbers in the range separated by a hyphen (meaning an inclusive range).
+Notes
+A. ) Repeat pattern like /2 for every 2 minutes or /10 for every 10 minutes is not supported by all operating systems. If you try to use it and crontab complains it is probably not supported.
+
+B.) The specification of days can be made in two fields: month day and weekday. If both are specified in an entry, they are cumulative meaning both of the entries will get executed .
+
+4. Crontab Example
+A line in crontab file like below removes the tmp files from /home/someuser/tmp each day at 6:30 PM.
+
+30  18  *   *   *       rm /home/someuser/tmp/*
+
+0 0 * * * /var/scripts/JenkinsBkup.sh
+
+Changing the parameter values as below will cause this command to run at different time schedule below :
+min     hour    day/month   month   day/week    Execution time
+30  0       1                   1,6,12  *               – 00:30 Hrs  on 1st of Jan, June & Dec.
+0       20  *                   10      1-5             –8.00 PM every weekday (Mon-Fri) only in Oct.
+0       0       1,10,15             *   *           – midnight on 1st ,10th & 15th of month
+5,10    0       10              *   1               – At 12.05,12.10 every Monday & on 10th of every month
+
+string         meaning
+------         -------
+@reboot        Run once, at startup.
+@yearly        Run once a year, "0 0 1 1 *".
+@annually      (same as @yearly)
+@monthly       Run once a month, "0 0 1 * *".
+@weekly        Run once a week, "0 0 * * 0".
+@daily         Run once a day, "0 0 * * *".
+@midnight      (same as @daily)
+@hourly        Run once an hour, "0 * * * *".
+
+
+Note : If you inadvertently enter the crontab command with no argument(s), do not attempt to get out with Control-d. This removes all entries in your crontab file. Instead, exit with Control-c.
+
+7. Generate log file
+To collect the cron execution execution log in a file :
+
+30 18 * * * rm /home/someuser/tmp/* > /home/someuser/cronlogs/clean_tmp_dir.log
+
+
+
+
+
+********
+********MD5 checksum
+********
+
+To see if a given file is valid, pass the output of a previous md5sum run with the switch -c. Thus, the following two steps occur:
+
+    * Compute the MD5 sum and store it in a file using:
+
+md5sum file > file.md5
+
+    * Check for validity with:
+
+md5sum -c file.md5
+
+It is not possible to compute a checksum for an entire directory. You have to recursively check every single file. Two alternatives:
+
+    * Use find in conjunction with md5sum:
+
+find -s directory -type f -print0 | xargs -0 md5sum >> file.md5
+
+or
+
+find -s directory -type f -exec md5sum {} \; >> file.md5
+
+this will store the checksum of all the files inside the directory into file.md5, then you can check the copied directory against this file. Go to the location of the copied directory and issue:
+
+md5sum -c /path/to/file.md5
+
+
+*****
+*****SSH Info
+*****
+
+PUSH YOUR SSH KEY TO ANOTHER SERVER FOR PASSWORD-LESS ACCESS
+Create the key...
+ssh-keygen
+Use SSH to copy your key to the server you want to access...
+ssh-copy-id infr-backup
+Test your access...
+ssh infr-backup
+
+
+
+
+
+*****
+*****Virtual Box Notes
+*****
+
+To automount a shared folder from windows do:
+sudo mount -t vboxsf -o uid=500,gid=500 SharedtoVM /home/sfloyd/Desktop/Shared
+if successful copy the command and put i in /etc/rc.local
+
+
+usermod -a -G data sfloyd
+
+
+
