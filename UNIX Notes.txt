@@ -1,4 +1,4 @@
-BASICS
+﻿BASICS
 ******************************************************************
 Profile is ususally /etc/.profile
 ******************************************************************
@@ -8,41 +8,7 @@ shutdown -r now
 Which ports are open:
 netstat -anp --tcp --udp | grep LISTEN
 ******************************************************************
-
-
-********
-********VI SHORTCUTS
-********
-gg   takes you to line #1
-:set paste    Before you paste something in so that the formatting is not lost from what you originally copied  Do :set nopaste after you are done.
-:set nu     Shows the line numbers
-
-
-
-********
-********SCP
-********
-
-scp -P 2921 sethf1@HOST_URL_OR_IP_ADDRESS:journalbackup.zip journalbkup.zip
-(command)  (port if different than 22)  (user@server) : (file to copy)   (path/targetname)
-
-
-
-********
-********PERMISSIONS
-********
-groups seth (shows what groups the user is in)
-
-
-CHOWN - http://en.wikipedia.org/wiki/Chown
-
-CHGRP - http://en.wikipedia.org/wiki/Chgrp
-The general syntax of the chgrp command is:
-
-chgrp group target1 [target2 ..]
-
-    * The group parameter indicates the new group with which the targets should be associated. It may either be a symbolic name or an identifier.
-    * The target1 parameter indicates the files or directories for which the change should be made.
+ files or directories for which the change should be made.
     * The target2 parameter indicates optional additional files or directories for which the change should be made.
 
 Usage example
